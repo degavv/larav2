@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: lara_v2
+    ports:
+      - "8081:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./sites-available:/etc/apache2/sites-available
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+    networks:
+      - shared-net
+
+networks:
+  shared-net:
+    external: true  # важливо!
