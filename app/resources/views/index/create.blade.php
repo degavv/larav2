@@ -4,7 +4,7 @@
     <div class="panel-body">
         @include('common.errors')
 
-        <form action="{{ route('store') }}" method="POST" class="form-horizontal">
+        <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
             {{ csrf_field() }}
 
             <div class="form-group">
@@ -13,6 +13,7 @@
                 <div class="col-sm-4">
                     <input type="file" name="file" id="file" class="form-control" accept="image/png, image/jpeg">
                 </div>
+
             </div>
 
             <div class="form-group">
