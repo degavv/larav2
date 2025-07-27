@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Photo;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class PhotoController extends Controller
 {
@@ -17,7 +18,17 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        return view('index.index');
+        // $user = Auth::user();
+        $photo = new Photo();
+        $photos = $photo->orderBy('created_at', 'desc')->get();
+        // dd($photos);
+        return view(
+            'index.index',
+            [
+                'photos' => $photos,
+                'path' => 'storage/photos',
+            ]
+        );
     }
 
     /**
@@ -36,11 +47,19 @@ class PhotoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePhotoRequest $request)
     {
-        // $user = Auth::user();
-        dd($request);
-        $photo = new Photo;
+        $user = Auth::user();
+
+        $file = $request->file('file');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        // $uploadDir = storage_path('app/public/photos');
+        $uploadDir = 'photos';
+        $file->move($uploadDir, $fileName);
+
+        $user->photos()->create([
+            'name' => $fileName,
+        ]);
         echo 'store';
     }
 
