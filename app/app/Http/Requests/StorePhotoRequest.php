@@ -24,7 +24,7 @@ class StorePhotoRequest extends Request
     public function rules()
     {
         return [
-            'file' => 'required|mimes:jpeg,png,jpg|max:2048',
+            'file' => 'required|mimes:jpeg,png|max:2048',
         ];
     }
 }
