@@ -14,7 +14,11 @@
             </div>
 
             <div class="panel-body">
+                @foreach ($photos as $photo)
+                    <p>{{ public_path('storage/photos/' . $photo->filename) }}</p>
 
+                    <img src="{{ asset('storage/photos/' . $photo->filename) }}" alt="{{ $photo->name }}">
+                @endforeach
             </div>
         </div>
     </div>
