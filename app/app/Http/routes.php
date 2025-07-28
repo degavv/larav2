@@ -10,19 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/', 'PhotoController@index')->name('home');
-// Route::resource('photo', 'PhotoController', [
-//     'except' => ['show'],
-// ]);
-
-
 Route::get('/', 'PhotoController@index')->name('index');
 Route::get('/create', 'PhotoController@create')->name('create');
 Route::post('/', 'PhotoController@store')->name('store');
-Route::auth();
+Route::delete('/{photo}', 'PhotoController@destroy')->name('destroy');
+Route::get('/{photo}', 'PhotoController@edit')->name('edit');
+Route::patch('/{photo}', 'PhotoController@update')->name('update');
 
+Route::auth();
 Route::get('/home', 'HomeController@index');
